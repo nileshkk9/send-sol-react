@@ -16,9 +16,11 @@
 .mint-count {
   width: 50%;
 }
+.mynav{
+  opacity: 0.8;
+}
 
 /* MINT BUTTON CSS */
-
 .btn-11 {
   border:none;
   background: #7986cb;

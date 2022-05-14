@@ -4,6 +4,8 @@ import SendLamport from "./SendLamport";
 import "../App.css";
 
 const Content: FC = () => {
+  const IMAGE_COUNT = 14;
+  const IMAGE_CHANGE_WAIT = 1500;
   const [image, setImage] = useState(1);
   const [nftCount, setNftCount] = useState(1);
 
@@ -21,10 +23,10 @@ const Content: FC = () => {
   const changeImage = () => {
     const interval = setInterval(() => {
       setImage((prevImage) => {
-        if (prevImage === 9) return 1;
+        if (prevImage === IMAGE_COUNT) return 1;
         return prevImage + 1;
       });
-    }, 1500);
+    }, IMAGE_CHANGE_WAIT);
     return interval;
   };
 
@@ -41,7 +43,7 @@ const Content: FC = () => {
         <WalletMultiButton />
       </div> */}
       <div className="col d-flex justify-content-center mt-5 ">
-        <div className="card col-md-4 mycard" style={{ width: "400px" }}>
+        <div className="card mycard" style={{ width: "400px" }}>
           <img
             className="card-img-top mycard"
             src={`/assets/images/${image}.png`}
@@ -58,8 +60,9 @@ const Content: FC = () => {
                 +
               </button>
             </div>
+            {/* TODO: mint price/ nft */}
             <p className="card-text">Some example text.</p>
-           <SendLamport/>
+           <SendLamport count={nftCount} />
           </div>
         </div>
       </div>
