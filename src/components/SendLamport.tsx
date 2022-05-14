@@ -1,21 +1,20 @@
-import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
-  Keypair,
   LAMPORTS_PER_SOL,
   PublicKey,
   SystemProgram,
   Transaction,
 } from "@solana/web3.js";
-import { FC, useCallback } from "react";
+import { FC } from "react";
 
 const SendLamport: FC<{ count: Number }> = (props) => {
-    
   const { connection } = useConnection();
-  const { publicKey, sendTransaction, signTransaction } = useWallet();
+  const { publicKey, signTransaction } = useWallet();
+
   const transferSol = async () => {
     const recieverWallet = new PublicKey(
-      "92MShDuWbTtjoDrp5t3RJLzHaEsnXj8k7kA2vbvUSSsk"
+      // @ts-ignore
+      process.env.REACT_APP_RECEIVER_WALLET
     );
     const transaction = new Transaction().add(
       SystemProgram.transfer({
@@ -38,19 +37,6 @@ const SendLamport: FC<{ count: Number }> = (props) => {
     await connection.confirmTransaction(signature);
   };
 
-  // const onClick = useCallback(async () => {
-  //     if (!publicKey) throw new WalletNotConnectedError();
-  //     const transaction = new Transaction().add(
-  //         SystemProgram.transfer({
-  //             fromPubkey: publicKey,
-  //             toPubkey: new PublicKey("35sy8KpwfV65QMQAdLDLk1AATVH6HdQeGiGAe4zHsTnW"),
-  //             lamports: 100
-
-  //         })
-  //     );
-  //     const signature = await sendTransaction(transaction, connection);
-  //     await connection.confirmTransaction(signature, "confirmed");
-  // }, [publicKey, sendTransaction, connection])
   return (
     <button onClick={transferSol} className="btn-11" disabled={!publicKey}>
       Mint
