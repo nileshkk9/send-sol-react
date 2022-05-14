@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import SendLamport from "./SendLamport";
 import "../App.css";
+import ProgressBar from "./Progressbar";
 
 const Content: FC = () => {
   const IMAGE_COUNT = 14;
@@ -64,6 +65,7 @@ const Content: FC = () => {
                 +
               </button>
             </div>
+            <ProgressBar/>
             {/* TODO: mint price/ nft */}
             <p className="card-text">Some example text.</p>
             <SendLamport count={nftCount} />
