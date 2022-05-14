@@ -52,7 +52,7 @@ const Content: FC = () => {
             alt="Card image"
           />
           <div className="card-body text-center">
-            <h5 className="card-title">WL Mint Phase 1</h5>
+            <h5 className="card-title">Public Mint</h5>
             <div className="btn-group mt-2" role="group">
               <button className="btn btn-danger " onClick={handleDecrement}>
                 -
