@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import SendLamport from "./SendLamport";
 import "../App.css";
 import ProgressBar from "./Progressbar";
+import Footer from "./Footer";
 
 const Content: FC = () => {
   const IMAGE_COUNT = 14;
@@ -44,7 +45,7 @@ const Content: FC = () => {
         <WalletMultiButton />
       </div> */}
       <div className="col d-flex justify-content-center mt-5 ">
-        <div className="card mycard" style={{ width: "400px" }}>
+        <div className="card mycard bg-dark" style={{ width: "400px" }}>
           <img
             className="card-img-top mycard"
             src={`/assets/images/${image}.png`}
@@ -72,6 +73,7 @@ const Content: FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
