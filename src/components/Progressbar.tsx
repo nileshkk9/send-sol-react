@@ -2,14 +2,22 @@ import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
   const [minted, setMinted] = useState(25);
-
+    const TOTAL_MINT = 4000;
   const minting = () => {
     setMinted((prevMint) => {
-      localStorage.setItem("mintedCount", (prevMint + 5).toString());
-
-      return prevMint + 5;
+        const ran = generateRandom(25,100)
+      localStorage.setItem("mintedCount", (prevMint + ran).toString());
+      return prevMint + ran;
     });
   };
+
+  const generateRandom=(min = 0, max = 100)=> {
+    let difference = max - min;
+    let rand = Math.random();
+    rand = Math.floor( rand * difference);
+    rand = rand + min;
+    return rand;
+}
   useEffect(() => {
       if(localStorage.getItem("mintedCount")){
           setMinted(Number(localStorage.getItem("mintedCount")))
@@ -20,13 +28,14 @@ const ProgressBar = () => {
     };
   }, []);
   return (
-    <div className="mt-3">
-      <div className="progress" style={{ height:30 }}>
+    <div className="mt-4">
+      <div className="progress">
         <div
           className="progress-bar bg-success progress-bar-striped"
-          style={{ width: minted, height:30 }}
+          style={{ width: minted/10 }}
         >
-          {minted}/4000 minted
+            {minted>=TOTAL_MINT?"Mint Completed":`${minted}/${TOTAL_MINT} minted`}
+          
         </div>
       </div>
     </div>

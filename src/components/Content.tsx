@@ -52,8 +52,8 @@ const Content: FC = () => {
             alt="Card image"
           />
           <div className="card-body text-center">
-            <h4 className="card-title">WL Mint Phase 1</h4>
-            <div className="btn-group" role="group">
+            <h5 className="card-title">WL Mint Phase 1</h5>
+            <div className="btn-group mt-2" role="group">
               <button className="btn btn-danger " onClick={handleDecrement}>
                 -
               </button>
@@ -67,8 +67,8 @@ const Content: FC = () => {
               </button>
             </div>
             <ProgressBar/>
-            {/* TODO: mint price/ nft */}
-            <p className="card-text">Some example text.</p>
+
+            <p className="card-text mt-3">1 Mint = 1 SOL</p>
             <SendLamport count={nftCount} />
           </div>
         </div>

@@ -1,7 +1,7 @@
 #myVideo {
   position: fixed;
   right: 0;
-  bottom: 0;
+  bottom: 20;
   min-width: 100%;
   min-height: 100%;
 }
@@ -25,7 +25,7 @@
   width: 100%;
   /* background-color: rgb(27, 31, 27); */
   color: rgba(255, 255, 255, 0.767);
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .mint-count {
@@ -62,7 +62,10 @@
   box-shadow: 0 2px 0px #3f51b5;
   transition: all 0.2s;
 }
-
+/* PROGRESS BAR */
+.progress {
+  height: 30px; 
+}
 .progress-bar{
-  color: black ;
+  color: black;
 }
