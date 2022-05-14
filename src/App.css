@@ -12,10 +12,21 @@
 
 .card {
   padding: 10px;
-  background-color: rgb(27, 31, 27);
+  /* background-color: rgb(27, 31, 27); */
   color: rgba(255, 255, 255, 0.767);
 }
 
+.footer{
+  height: 60px;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* background-color: rgb(27, 31, 27); */
+  color: rgba(255, 255, 255, 0.767);
+  opacity: 0.8;
+}
 
 .mint-count {
   width: 50%;
