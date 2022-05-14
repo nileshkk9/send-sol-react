@@ -44,7 +44,7 @@ const SendLamport: FC = () => {
     //     await connection.confirmTransaction(signature, "confirmed");
     // }, [publicKey, sendTransaction, connection])
     return (
-        <button onClick={transferSol} disabled={!publicKey}>
+        <button onClick={transferSol} className="btn-11" disabled={!publicKey}>
             Mint
         </button>
     );

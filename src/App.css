@@ -1,20 +1,47 @@
-.app-body {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  gap: 1em 0;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-.app-body-top {
-  grid-row: 1;
+.mycard {
+  border-radius: 24px !important;
+}
+.card {
+  padding: 10px;
+  background-color: rgb(169, 242, 169);
+}
+.mint-count {
+  width: 50%;
 }
 
-.app-body-mid {
-  grid-row: 2;
-}
+/* MINT BUTTON CSS */
 
-.app-body-bottom {
-  grid-row: 3;
+.btn-11 {
+  border:none;
+  background: #7986cb;
+  font-size: 20px;
+  color: white;
+  border-radius: 7px;
+  box-shadow: 0 7px 0px #3f51b5;
+  display: inline-block;
+  transition: all 0.2s;
+  position: relative;
+  padding: 20px 25px;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  margin: 0 20px;
+}
+.btn-11:disabled {
+  background: grey;
+  box-shadow: 0 7px 0px grey;
+
+}
+.btn-11:active {
+  top: 3px;
+  box-shadow: 0 2px 0px #3f51b5;
+  transition: all 0.2s;
 }

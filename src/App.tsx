@@ -1,6 +1,5 @@
 import { Connection } from "@solana/web3.js";
 import React, { useEffect, useState, FC, ReactNode, useMemo } from "react";
-import "./App.css";
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider , useAnchorWallet} from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
