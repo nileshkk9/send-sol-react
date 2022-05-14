@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import SendLamport from "./SendLamport";
 import "../App.css";
+import Footer from "./Footer";
 
 const Content: FC = () => {
   const IMAGE_COUNT = 14;
@@ -70,6 +71,7 @@ const Content: FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
