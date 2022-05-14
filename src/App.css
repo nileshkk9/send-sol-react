@@ -1,11 +1,14 @@
-#myVideo {
+/* #myVideo {
   position: fixed;
   right: 0;
-  bottom: 20;
+  bottom: 0;
   min-width: 100%;
   min-height: 100%;
+} */
+body{
+  background-image: url("/public/assets/bg.png");     
+  background-size: 100%;
 }
-
 .mycard {
   border-radius: 24px !important;
 }
