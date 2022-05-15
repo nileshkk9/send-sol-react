@@ -1,79 +1,141 @@
-import { FC, useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import SendLamport from "./SendLamport";
-import "../App.css";
-import ProgressBar from "./Progressbar";
-import Footer from "./Footer";
+import { FC } from "react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { Idl } from "../utils/Idl";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey } from "@solana/web3.js";
+
+import { Program, Provider, web3, BN } from "@project-serum/anchor";
 
 const Content: FC = () => {
-  const IMAGE_COUNT = 14;
-  const IMAGE_CHANGE_WAIT = 1500;
-  const [image, setImage] = useState(1);
-  const [nftCount, setNftCount] = useState(1);
+  const wallet = useAnchorWallet();
+  const baseAccount = web3.Keypair.generate();
 
-  const handleIncrement = () => {
-    if (nftCount < 5) {
-      setNftCount((prev) => prev + 1);
+
+  const getProvider = () => {
+    if (!wallet) {
+      return null;
     }
+
+    const network = "http://127.0.0.1:8899";
+    const connection = new Connection(network, "processed");
+
+    const provider = new Provider(connection, wallet, {
+      preflightCommitment: "processed",
+    });
+    return provider;
   };
 
-  const handleDecrement = () => {
-    if (nftCount > 1) {
-      setNftCount((prev) => prev - 1);
+  const createCounter = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      throw "provider is null";
     }
-  };
-  const changeImage = () => {
-    const interval = setInterval(() => {
-      setImage((prevImage) => {
-        if (prevImage === IMAGE_COUNT) return 1;
-        return prevImage + 1;
+
+    // create the program interface combining the idl, program ID, and provider
+    const program = new Program(Idl as any, Idl.metadata.address, provider);
+
+    try {
+      await program.rpc.initialize(new BN(10),{
+        accounts: {
+          myAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+          systemProgram: web3.SystemProgram.programId,
+        },
+        signers: [baseAccount],
       });
-    }, IMAGE_CHANGE_WAIT);
-    return interval;
+
+      const account = await program.account.myAccount.fetch(
+        baseAccount.publicKey
+      );
+      console.log(account);
+    } catch (error) {
+      console.log("Transaction error: ", error);
+    }
   };
 
-  useEffect(() => {
-    const interval = changeImage();
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  const increment = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      throw "provider is null";
+    }
+
+    // create the program interface combining the idl, program ID, and provider
+    const program = new Program(Idl as any, Idl.metadata.address, provider);
+
+    try {
+      await program.rpc.increment({
+        accounts: {
+          myAccount: baseAccount.publicKey,
+        },
+      });
+
+      const account = await program.account.myAccount.fetch(
+        baseAccount.publicKey
+      );
+      console.log(account.data.toString());
+    } catch (error) {
+      console.log("Transaction error: ", error);
+    }
+  };
+
+  const decrement = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      throw "provider is null";
+    }
+
+    // create the program interface combining the idl, program ID, and provider
+    const program = new Program(Idl as any, Idl.metadata.address, provider);
+
+    try {
+      await program.rpc.decrement({
+        accounts: {
+          myAccount: baseAccount.publicKey,
+        },
+      });
+
+      const account = await program.account.myAccount.fetch(
+        baseAccount.publicKey
+      );
+      console.log(account.data.toString());
+    } catch (error) {
+      console.log("Transaction error: ", error);
+    }
+  };
+
+  const update = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      throw "provider is null";
+    }
+
+    // create the program interface combining the idl, program ID, and provider
+    const program = new Program(Idl as any, Idl.metadata.address, provider);
+
+    try {
+      await program.rpc.update(new BN(5), {
+        accounts: {
+          myAccount: baseAccount.publicKey,
+        },
+      });
+
+      const account = await program.account.myAccount.fetch(
+        baseAccount.publicKey
+      );
+      console.log(account.data.toString());
+    } catch (error) {
+      console.log("Transaction error: ", error);
+    }
+  };
+
   return (
     <div>
-      <Navbar />
-      {/* <div className="app-body">
-        <WalletMultiButton />
-      </div> */}
-      <div className="col d-flex justify-content-center mt-5 ">
-        <div className="card mycard bg-dark" style={{ width: "400px" }}>
-          <img
-            className="card-img-top mycard"
-            src={`/assets/images/${image}.png`}
-            alt="Card image"
-          />
-          <div className="card-body text-center">
-            <h5 className="card-title">Public Mint</h5>
-            <div className="btn-group mt-2" role="group">
-              <button className="btn btn-danger " onClick={handleDecrement}>
-                -
-              </button>
-              <input
-                type="text"
-                value={nftCount}
-                className="text-center mint-count"
-              />
-              <button className="btn btn-success" onClick={handleIncrement}>
-                +
-              </button>
-            </div>
-            <ProgressBar/>
+      <button onClick={createCounter}>Initialize</button>
+      <button onClick={update}>update</button>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
 
-            <p className="card-text mt-3">1 Mint = 1 SOL</p>
-            <SendLamport count={nftCount} />
-          </div>
-        </div>
-      </div>
-      <Footer />
+      <WalletMultiButton />
     </div>
   );
 };
